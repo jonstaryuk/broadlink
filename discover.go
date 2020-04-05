@@ -270,6 +270,9 @@ func ipV4Addrs() (ipv4addr []net.IP, err error) {
 	}
 
 	for _, d := range ifi {
+		if d.Flags&net.FlagLoopback != 0 {
+			continue
+		}
 		addr, e := d.Addrs()
 		if e != nil {
 			err = e
